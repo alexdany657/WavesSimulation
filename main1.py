@@ -1,7 +1,4 @@
 import math
-import sys
-
-from scipy.integrate import quad
 
 from multiprocessing import Pool
 
@@ -22,7 +19,6 @@ def ft(f_w, w, x, t):
         k = i / M
         summ += f_w(k) / M * math.e ** ((0+1j)*(w(k)*t-k*x))
     return summ
-    #return quad(_f, -2, 0)[0]
 
 # -----------------------------------------------------
 # consts
@@ -33,7 +29,6 @@ k_0 = 1
 w_0 = 1
 
 w = lambda k: w_0 * abs(k) ** 0.5
-print(w(-1))
 f_w = lambda k: A/2/math.pi**0.5*math.e**(-A**2*(k+k_0)**2/4)
 f = lambda x,t: ft(f_w, w, x, .1*t)
 #f = lambda x,t: B*math.e**(-x**2/A**2)*math.e**(-(0+1j)*k_0*x)
