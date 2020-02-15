@@ -1,29 +1,42 @@
 import math
 import sys
 
+from scipy.integrate import quad
+
 from multiprocessing import Pool
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
 
+DEBUG = False
+
 # functions
 
 def ft(f_w, w, x, t):
-    N = 100
-    M = 10
-    summ = 0
-    for i in range(-N*M,N*M+1):
+    _f = lambda k: complex(f_w(k) * math.e ** ((0+1j)*(w(k)*t-k*x))).real
+    N = 11
+    M = 500
+    summ = (0+0j)
+    for i in range(int(-(k_0+.5)*M),int((-k_0+.5)*M+1)):
         k = i / M
         summ += f_w(k) / M * math.e ** ((0+1j)*(w(k)*t-k*x))
     return summ
+    #return quad(_f, -2, 0)[0]
 
 # -----------------------------------------------------
 # consts
 
-w = lambda k: (k) ** .5
-f_w = lambda k: 1/2/math.pi**0.5*math.e**(-(k)**2/4)
-f = lambda x,t: ft(f_w, w, x, .1*t).real
+A = 10
+B = 1
+k_0 = 1
+w_0 = 1
+
+w = lambda k: w_0 * abs(k) ** 0.5
+print(w(-1))
+f_w = lambda k: A/2/math.pi**0.5*math.e**(-A**2*(k+k_0)**2/4)
+f = lambda x,t: ft(f_w, w, x, .1*t)
+#f = lambda x,t: B*math.e**(-x**2/A**2)*math.e**(-(0+1j)*k_0*x)
 
 xLim = 50
 xStep = 1e-1
@@ -32,9 +45,9 @@ x = np.arange(-xLim,xLim+xStep,xStep)
 
 xRange, yRange = [-xLim, xLim], [-1.1, 1.1]
 
-t = np.arange(0,100,1)
-frames = 100
+frames = 500
 interval = 50
+t = np.arange(0,frames,1)
 
 # -----------------------------------------------------
 # containres
@@ -49,7 +62,7 @@ def plot(t):
     _x = []
     for __x in x:
         _x.append(__x)
-        _y.append(f(__x, t))
+        _y.append(f(__x, t).real)
     print(t)
     return (_x, _y)
 
@@ -75,9 +88,11 @@ class App:
         
         def init():
             global precalc
-            print("Started precalc")
+            if (DEBUG):
+                print("Started precalc")
             if precalc != []:
-                print("Using cached data!")
+                if (DEBUG):
+                    print("Using cached data!")
                 return self.line, self.text
             
             #tmp = [None for _ in range(fr)]
@@ -90,7 +105,8 @@ class App:
 
             precalc = tmp
 
-            print("Precalc done")
+            if (DEBUG):
+                print("Precalc done")
             return self.line, self.text
 
         def animate(i):
