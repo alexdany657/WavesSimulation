@@ -1,0 +1,8 @@
+linWave*
+__py*
+.tmp/*
+ga
+*.tex
+*.sh
+*.sty
+fastCalc/*
