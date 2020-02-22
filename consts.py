@@ -3,13 +3,13 @@ import numpy as np
 def constructFilename():
     return "linWave_"+str(A)+'_'+str(B)+'_'+str(k_0)+'_'+str(w_0)+'_'+str(w_p)+'_'+str(xLim)+'_'+str(xStep)+'_'+str(frames)+'_'+str(M)
 
-A = 100 #IMPORTANT
+A = 10 #IMPORTANT
 B = 1 #IMPORTANT
 k_0 = 1 #IMPORTANT
 w_0 = .5 #IMPORTANT
 w_p = 0.5 #VERY_IMPORTANT !!!
 
-xLim = 50 #IMPORTANT
+xLim = 200 #IMPORTANT
 xStep = 1e-1 #IMPORTANT
 
 M = 500 #IMPORTANT

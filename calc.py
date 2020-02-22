@@ -9,8 +9,8 @@ def ft(f_w, w, x, t):
     summ = 0
     for i in range(int(-(consts.k_0+abs(consts.k_0))*consts.M),int((-consts.k_0+abs(consts.k_0))*consts.M+1)):
         k = i / consts.M
-        summ += f_w(k) / consts.M * cmath.exp((0+1j)*(w(k)*t-k*x)).real
-    return summ
+        summ += f_w(k) / consts.M * cmath.exp((0+1j)*(w(k)*t-k*x))
+    return [summ.real, summ.imag]
 
 w = lambda k: consts.w_0 * abs(k) ** consts.w_p
 f_w = lambda k: consts.B * consts.A/2/math.pi**0.5*math.exp(-consts.A**2*(k+consts.k_0)**2/4)
