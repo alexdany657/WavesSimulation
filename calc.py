@@ -13,7 +13,7 @@ def ft(f_w, w, x, t):
     return summ
 
 w = lambda k: consts.w_0 * abs(k) ** consts.w_p
-f_w = lambda k: consts.A/2/math.pi**0.5*math.exp(-consts.A**2*(k+consts.k_0)**2/4)
+f_w = lambda k: consts.B * consts.A/2/math.pi**0.5*math.exp(-consts.A**2*(k+consts.k_0)**2/4)
 f = lambda x,t: ft(f_w, w, x, t)
 
 def plot(t):
